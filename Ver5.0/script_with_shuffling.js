@@ -106,7 +106,7 @@
       "type": "singleSelect"
     },
      {
-      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup> L<sup>0</sup> T<sup>0</sup>]?",
+      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>]?",
       "options": ["Strain", "Energy", "Power", "Force"],
       "correct": [0],
       "explanation": "Strain is a ratio of similar quantities and hence dimensionless.",

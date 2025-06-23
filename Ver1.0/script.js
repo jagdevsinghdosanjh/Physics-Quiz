@@ -244,6 +244,42 @@ function loadQuiz() {
     });
 }
 
+// function submitQuiz() {
+//     let score = 0;
+//     let userResponses = [];
+//     let explanationHTML = `<h2>Explanations:</h2>`;
+
+//     shuffledQuizData.forEach((q, index) => {
+//         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+//         if (selectedOption) {
+//             const selectedIndex = parseInt(selectedOption.value);
+//             const isCorrect = selectedIndex === q.correct[0];
+
+//             userResponses.push({
+//                 question: q.question,
+//                 selected: q.options[selectedIndex],
+//                 correct: q.options[q.correct[0]],
+//                 explanation: q.explanation,
+//                 isCorrect
+//             });
+
+//             score += isCorrect ? 1 : 0;
+//         }
+//     });
+
+//     document.getElementById("result").innerHTML = `You scored ${score} out of ${shuffledQuizData.length}!`;
+
+//     userResponses.forEach((res, i) => {
+//         explanationHTML += `<p><strong>${i + 1}. ${res.question}</strong><br>
+//             Your answer: ${res.selected}<br>
+//             Correct answer: ${res.correct}<br>
+//             Explanation: ${res.explanation}</p>`;
+//     });
+
+//     document.getElementById("explanation").innerHTML = explanationHTML;
+//     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
+// }
+
 function submitQuiz() {
     let score = 0;
     let userResponses = [];
@@ -251,20 +287,18 @@ function submitQuiz() {
 
     shuffledQuizData.forEach((q, index) => {
         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-        if (selectedOption) {
-            const selectedIndex = parseInt(selectedOption.value);
-            const isCorrect = selectedIndex === q.correct[0];
+        const selectedIndex = selectedOption ? parseInt(selectedOption.value) : null;
+        const isCorrect = selectedIndex === q.correct[0];
 
-            userResponses.push({
-                question: q.question,
-                selected: q.options[selectedIndex],
-                correct: q.options[q.correct[0]],
-                explanation: q.explanation,
-                isCorrect
-            });
+        userResponses.push({
+            question: q.question,
+            selected: selectedIndex !== null ? q.options[selectedIndex] : "Not answered",
+            correct: q.options[q.correct[0]],
+            explanation: q.explanation,
+            isCorrect: selectedIndex !== null ? isCorrect : false
+        });
 
-            score += isCorrect ? 1 : 0;
-        }
+        score += selectedIndex !== null && isCorrect ? 1 : 0;
     });
 
     document.getElementById("result").innerHTML = `You scored ${score} out of ${shuffledQuizData.length}!`;
@@ -277,8 +311,10 @@ function submitQuiz() {
     });
 
     document.getElementById("explanation").innerHTML = explanationHTML;
+
     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
 }
+
 
 // function generatePDF() {
 //     const { jsPDF } = window.jspdf;

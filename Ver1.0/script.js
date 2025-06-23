@@ -280,11 +280,40 @@ function submitQuiz() {
     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
 }
 
+// function generatePDF() {
+//     const { jsPDF } = window.jspdf;
+//     const doc = new jsPDF();
+//     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
+//     let y = 20;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.setFontSize(18);
+//     doc.text("Physical World and Measurement Quiz Results", 20, 10);
+
+//     doc.setFontSize(14);
+//     doc.text(`Score: ${quizResults.score} / ${shuffledQuizData.length}`, 20, y);
+//     y += 10;
+
+//     quizResults.userResponses.forEach((res, index) => {
+//         doc.setFontSize(12);
+//         doc.text(`${index + 1}. ${res.question}`, 10, y);
+//         y += 7;
+//         doc.text(`Your answer: ${res.selected}`, 10, y);
+//         y += 5;
+//         doc.text(`Correct answer: ${res.correct}`, 10, y);
+//         y += 5;
+//         doc.text(`Explanation: ${res.explanation}`, 10, y);
+//         y += 10;
+//     });
+
+//     doc.save("quiz_results.pdf");
+// }
 function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
     let y = 20;
+    const pageHeight = doc.internal.pageSize.height;
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
@@ -295,6 +324,12 @@ function generatePDF() {
     y += 10;
 
     quizResults.userResponses.forEach((res, index) => {
+        const blockHeight = 25; // estimated height per question block
+        if (y + blockHeight > pageHeight - 10) {
+            doc.addPage();
+            y = 20;
+        }
+
         doc.setFontSize(12);
         doc.text(`${index + 1}. ${res.question}`, 10, y);
         y += 7;
@@ -303,7 +338,7 @@ function generatePDF() {
         doc.text(`Correct answer: ${res.correct}`, 10, y);
         y += 5;
         doc.text(`Explanation: ${res.explanation}`, 10, y);
-        y += 10;
+        y += 8;
     });
 
     doc.save("quiz_results.pdf");

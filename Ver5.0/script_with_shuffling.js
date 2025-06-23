@@ -211,6 +211,107 @@
       "type": "singleSelect"
     }
 ];
+// // Deep copy to preserve original data
+// const shuffledQuizData = JSON.parse(JSON.stringify(quizData));
+
+// // Utility to shuffle arrays
+// function shuffleArray(array) {
+//     for (let i = array.length - 1; i > 0; i--) {
+//         const j = Math.floor(Math.random() * (i + 1));
+//         [array[i], array[j]] = [array[j], array[i]];
+//     }
+// }
+
+// // Shuffle questions and their options
+// function randomizeQuiz() {
+//     shuffledQuizData.forEach((q, index) => {
+//         q.originalIndex = index;  // track original position
+//         const correctValue = q.options[q.correct[0]];
+//         shuffleArray(q.options);
+//         q.correct[0] = q.options.indexOf(correctValue);
+//     });
+//     shuffleArray(shuffledQuizData);
+// }
+
+// function loadQuiz() {
+//     randomizeQuiz();
+//     const quizContainer = document.getElementById("quiz");
+//     shuffledQuizData.forEach((q, index) => {
+//         let questionHTML = `<p>${index + 1}. ${q.question}</p>`;
+//         q.options.forEach((option, i) => {
+//             questionHTML += `<input type="radio" name="question${index}" value="${i}"> ${option} <br>`;
+//         });
+//         quizContainer.innerHTML += questionHTML + "<br>";
+//     });
+// }
+
+// function submitQuiz() {
+//     let score = 0;
+//     let userResponses = [];
+//     let explanationHTML = `<h2>Explanations:</h2>`;
+
+//     shuffledQuizData.forEach((q, index) => {
+//         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+//         if (selectedOption) {
+//             const selectedIndex = parseInt(selectedOption.value);
+//             const isCorrect = selectedIndex === q.correct[0];
+
+//             userResponses.push({
+//                 question: q.question,
+//                 selected: q.options[selectedIndex],
+//                 correct: q.options[q.correct[0]],
+//                 explanation: q.explanation,
+//                 isCorrect
+//             });
+
+//             score += isCorrect ? 1 : 0;
+//         }
+//     });
+
+//     document.getElementById("result").innerHTML = `You scored ${score} out of ${shuffledQuizData.length}!`;
+
+//     userResponses.forEach((res, i) => {
+//         explanationHTML += `<p><strong>${i + 1}. ${res.question}</strong><br>
+//             Your answer: ${res.selected}<br>
+//             Correct answer: ${res.correct}<br>
+//             Explanation: ${res.explanation}</p>`;
+//     });
+
+//     document.getElementById("explanation").innerHTML = explanationHTML;
+//     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
+// }
+
+// function generatePDF() {
+//     const { jsPDF } = window.jspdf;
+//     const doc = new jsPDF();
+//     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
+//     let y = 20;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.setFontSize(18);
+//     doc.text("Physical World and Measurement Quiz Results", 20, 10);
+
+//     doc.setFontSize(14);
+//     doc.text(`Score: ${quizResults.score} / ${shuffledQuizData.length}`, 20, y);
+//     y += 10;
+
+//     quizResults.userResponses.forEach((res, index) => {
+//         doc.setFontSize(12);
+//         doc.text(`${index + 1}. ${res.question}`, 10, y);
+//         y += 7;
+//         doc.text(`Your answer: ${res.selected}`, 10, y);
+//         y += 5;
+//         doc.text(`Correct answer: ${res.correct}`, 10, y);
+//         y += 5;
+//         doc.text(`Explanation: ${res.explanation}`, 10, y);
+//         y += 10;
+//     });
+
+//     doc.save("quiz_results.pdf");
+// }
+
+// window.onload = loadQuiz;
+
 // Deep copy to preserve original data
 const shuffledQuizData = JSON.parse(JSON.stringify(quizData));
 
@@ -245,6 +346,42 @@ function loadQuiz() {
     });
 }
 
+// function submitQuiz() {
+//     let score = 0;
+//     let userResponses = [];
+//     let explanationHTML = `<h2>Explanations:</h2>`;
+
+//     shuffledQuizData.forEach((q, index) => {
+//         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+//         if (selectedOption) {
+//             const selectedIndex = parseInt(selectedOption.value);
+//             const isCorrect = selectedIndex === q.correct[0];
+
+//             userResponses.push({
+//                 question: q.question,
+//                 selected: q.options[selectedIndex],
+//                 correct: q.options[q.correct[0]],
+//                 explanation: q.explanation,
+//                 isCorrect
+//             });
+
+//             score += isCorrect ? 1 : 0;
+//         }
+//     });
+
+//     document.getElementById("result").innerHTML = `You scored ${score} out of ${shuffledQuizData.length}!`;
+
+//     userResponses.forEach((res, i) => {
+//         explanationHTML += `<p><strong>${i + 1}. ${res.question}</strong><br>
+//             Your answer: ${res.selected}<br>
+//             Correct answer: ${res.correct}<br>
+//             Explanation: ${res.explanation}</p>`;
+//     });
+
+//     document.getElementById("explanation").innerHTML = explanationHTML;
+//     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
+// }
+
 function submitQuiz() {
     let score = 0;
     let userResponses = [];
@@ -252,20 +389,18 @@ function submitQuiz() {
 
     shuffledQuizData.forEach((q, index) => {
         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-        if (selectedOption) {
-            const selectedIndex = parseInt(selectedOption.value);
-            const isCorrect = selectedIndex === q.correct[0];
+        const selectedIndex = selectedOption ? parseInt(selectedOption.value) : null;
+        const isCorrect = selectedIndex === q.correct[0];
 
-            userResponses.push({
-                question: q.question,
-                selected: q.options[selectedIndex],
-                correct: q.options[q.correct[0]],
-                explanation: q.explanation,
-                isCorrect
-            });
+        userResponses.push({
+            question: q.question,
+            selected: selectedIndex !== null ? q.options[selectedIndex] : "Not answered",
+            correct: q.options[q.correct[0]],
+            explanation: q.explanation,
+            isCorrect: selectedIndex !== null ? isCorrect : false
+        });
 
-            score += isCorrect ? 1 : 0;
-        }
+        score += selectedIndex !== null && isCorrect ? 1 : 0;
     });
 
     document.getElementById("result").innerHTML = `You scored ${score} out of ${shuffledQuizData.length}!`;
@@ -278,14 +413,45 @@ function submitQuiz() {
     });
 
     document.getElementById("explanation").innerHTML = explanationHTML;
+
     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
 }
 
+
+// function generatePDF() {
+//     const { jsPDF } = window.jspdf;
+//     const doc = new jsPDF();
+//     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
+//     let y = 20;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.setFontSize(18);
+//     doc.text("Physical World and Measurement Quiz Results", 20, 10);
+
+//     doc.setFontSize(14);
+//     doc.text(`Score: ${quizResults.score} / ${shuffledQuizData.length}`, 20, y);
+//     y += 10;
+
+//     quizResults.userResponses.forEach((res, index) => {
+//         doc.setFontSize(12);
+//         doc.text(`${index + 1}. ${res.question}`, 10, y);
+//         y += 7;
+//         doc.text(`Your answer: ${res.selected}`, 10, y);
+//         y += 5;
+//         doc.text(`Correct answer: ${res.correct}`, 10, y);
+//         y += 5;
+//         doc.text(`Explanation: ${res.explanation}`, 10, y);
+//         y += 10;
+//     });
+
+//     doc.save("quiz_results.pdf");
+// }
 function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
     let y = 20;
+    const pageHeight = doc.internal.pageSize.height;
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
@@ -296,6 +462,12 @@ function generatePDF() {
     y += 10;
 
     quizResults.userResponses.forEach((res, index) => {
+        const blockHeight = 25; // estimated height per question block
+        if (y + blockHeight > pageHeight - 10) {
+            doc.addPage();
+            y = 20;
+        }
+
         doc.setFontSize(12);
         doc.text(`${index + 1}. ${res.question}`, 10, y);
         y += 7;
@@ -304,7 +476,7 @@ function generatePDF() {
         doc.text(`Correct answer: ${res.correct}`, 10, y);
         y += 5;
         doc.text(`Explanation: ${res.explanation}`, 10, y);
-        y += 10;
+        y += 8;
     });
 
     doc.save("quiz_results.pdf");

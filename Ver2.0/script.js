@@ -1,10 +1,6 @@
 //Ver2.0 - Motion in a Straight Line (script.js)
 const quizData = [
   {
-    "title": "Motion in a Straight Line Quiz",
-    "type": "quiz",
-    "quiz": [
-      {
         "question": "What is the SI unit of displacement?",
         "options": ["Meter", "Kilogram", "Second", "Newton"],
         "correct": [0],
@@ -256,9 +252,7 @@ const quizData = [
         "explanation": "Displacement is the distance in a specific direction from the starting point.",
         "type": "singleSelect"
       }
-    ]
-  }
-];
+    ];
 
 
 // Deep copy to preserve original data

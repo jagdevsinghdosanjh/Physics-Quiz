@@ -151,7 +151,7 @@
       "question": "What is the dimensional formula for surface tension?",
       "options": ["[M T<sup>-2</sup>]", "[M L<sup>0</sup> T<sup>-2</sup>]", "[M T<sup>-1</sup>]", "[M L<sup>-1</sup> T<sup>-2</sup>]"],
       "correct": [3],
-      "explanation": "Surface tension = force/length ⇒ [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
+      "explanation": "Surface tension = force/length = [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {

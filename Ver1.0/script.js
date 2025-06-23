@@ -1,4 +1,5 @@
-const quizData = [
+//Ver1.0 - Polynomial Quiz Application (script.js)
+   const quizData = [
     {
       "question": "Which of the following is a fundamental quantity?",
       "options": ["Velocity", "Force", "Mass", "Energy"],
@@ -105,7 +106,7 @@ const quizData = [
       "type": "singleSelect"
     },
      {
-      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup> L<sup>0</sup> T<sup>0</sup>]?",
+      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>]?",
       "options": ["Strain", "Energy", "Power", "Force"],
       "correct": [0],
       "explanation": "Strain is a ratio of similar quantities and hence dimensionless.",
@@ -150,7 +151,7 @@ const quizData = [
       "question": "What is the dimensional formula for surface tension?",
       "options": ["[M T<sup>-2</sup>]", "[M L<sup>0</sup> T<sup>-2</sup>]", "[M T<sup>-1</sup>]", "[M L<sup>-1</sup> T<sup>-2</sup>]"],
       "correct": [3],
-      "explanation": "Surface tension = force/length ⇒ [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
+      "explanation": "Surface tension = force/length = [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -210,6 +211,7 @@ const quizData = [
       "type": "singleSelect"
     }
 ];
+
 // Deep copy to preserve original data
 const shuffledQuizData = JSON.parse(JSON.stringify(quizData));
 
@@ -243,42 +245,6 @@ function loadQuiz() {
         quizContainer.innerHTML += questionHTML + "<br>";
     });
 }
-
-// function submitQuiz() {
-//     let score = 0;
-//     let userResponses = [];
-//     let explanationHTML = `<h2>Explanations:</h2>`;
-
-//     shuffledQuizData.forEach((q, index) => {
-//         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-//         if (selectedOption) {
-//             const selectedIndex = parseInt(selectedOption.value);
-//             const isCorrect = selectedIndex === q.correct[0];
-
-//             userResponses.push({
-//                 question: q.question,
-//                 selected: q.options[selectedIndex],
-//                 correct: q.options[q.correct[0]],
-//                 explanation: q.explanation,
-//                 isCorrect
-//             });
-
-//             score += isCorrect ? 1 : 0;
-//         }
-//     });
-
-//     document.getElementById("result").innerHTML = `You scored ${score} out of ${shuffledQuizData.length}!`;
-
-//     userResponses.forEach((res, i) => {
-//         explanationHTML += `<p><strong>${i + 1}. ${res.question}</strong><br>
-//             Your answer: ${res.selected}<br>
-//             Correct answer: ${res.correct}<br>
-//             Explanation: ${res.explanation}</p>`;
-//     });
-
-//     document.getElementById("explanation").innerHTML = explanationHTML;
-//     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
-// }
 
 function submitQuiz() {
     let score = 0;
@@ -315,69 +281,44 @@ function submitQuiz() {
     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
 }
 
-
-// function generatePDF() {
-//     const { jsPDF } = window.jspdf;
-//     const doc = new jsPDF();
-//     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
-//     let y = 20;
-
-//     doc.setFont("helvetica", "bold");
-//     doc.setFontSize(18);
-//     doc.text("Physical World and Measurement Quiz Results", 20, 10);
-
-//     doc.setFontSize(14);
-//     doc.text(`Score: ${quizResults.score} / ${shuffledQuizData.length}`, 20, y);
-//     y += 10;
-
-//     quizResults.userResponses.forEach((res, index) => {
-//         doc.setFontSize(12);
-//         doc.text(`${index + 1}. ${res.question}`, 10, y);
-//         y += 7;
-//         doc.text(`Your answer: ${res.selected}`, 10, y);
-//         y += 5;
-//         doc.text(`Correct answer: ${res.correct}`, 10, y);
-//         y += 5;
-//         doc.text(`Explanation: ${res.explanation}`, 10, y);
-//         y += 10;
-//     });
-
-//     doc.save("quiz_results.pdf");
-// }
 function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
-    let y = 20;
     const pageHeight = doc.internal.pageSize.height;
+    const pageWidth = doc.internal.pageSize.width;
+    let y = 20;
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.text("Physical World and Measurement Quiz Results", 20, 10);
+    doc.setFontSize(16);
+    doc.text("Physical World and Measurement Quiz Results", 20, 15);
 
-    doc.setFontSize(14);
-    doc.text(`Score: ${quizResults.score} / ${shuffledQuizData.length}`, 20, y);
+    doc.setFontSize(13);
+    doc.text(`Score: ${quizResults.score} / ${quizResults.userResponses.length}`, 20, y);
     y += 10;
 
     quizResults.userResponses.forEach((res, index) => {
-        const blockHeight = 25; // estimated height per question block
-        if (y + blockHeight > pageHeight - 10) {
-            doc.addPage();
-            y = 20;
-        }
+        const block = [
+            `${index + 1}. ${res.question}`,
+            `Your answer: ${res.selected}`,
+            `Correct answer: ${res.correct}`,
+            `Explanation: ${res.explanation}`
+        ];
 
-        doc.setFontSize(12);
-        doc.text(`${index + 1}. ${res.question}`, 10, y);
-        y += 7;
-        doc.text(`Your answer: ${res.selected}`, 10, y);
-        y += 5;
-        doc.text(`Correct answer: ${res.correct}`, 10, y);
-        y += 5;
-        doc.text(`Explanation: ${res.explanation}`, 10, y);
-        y += 8;
+        doc.setFontSize(11);
+        block.forEach(line => {
+            const wrapped = doc.splitTextToSize(line, pageWidth - 20);
+            if (y + wrapped.length * 6 > pageHeight - 15) {
+                doc.addPage();
+                y = 20;
+            }
+            doc.text(wrapped, 10, y);
+            y += wrapped.length * 6;
+        });
+
+        y += 4; // extra spacing between questions
     });
 
     doc.save("quiz_results.pdf");
 }
-
 window.onload = loadQuiz;

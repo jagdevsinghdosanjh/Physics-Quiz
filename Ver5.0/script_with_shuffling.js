@@ -1,4 +1,4 @@
-//Ver4.0 - Polynomial Quiz Application (script.js)
+//Ver5.0 - Polynomial Quiz Application (script.js)
    const quizData = [
     {
       "question": "Which of the following is a fundamental quantity?",
@@ -494,7 +494,7 @@ function generatePDF() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
-    doc.text("Physical World and Measurement Quiz Results", 20, 15);
+    doc.text("Physical World and Measurement Quiz Results V5.0", 20, 15);
 
     doc.setFontSize(13);
     doc.text(`Score: ${quizResults.score} / ${quizResults.userResponses.length}`, 20, y);

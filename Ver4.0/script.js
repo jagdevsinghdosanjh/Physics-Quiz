@@ -1,5 +1,5 @@
-//Ver4.0 - Polynomial Quiz Application (script.js)
-const quizData = [
+//Ver3.0 - Motion in a Plane (script.js)
+   const quizData = [
     {
       "question": "Which of the following is a fundamental quantity?",
       "options": ["Velocity", "Force", "Mass", "Energy"],
@@ -106,7 +106,7 @@ const quizData = [
       "type": "singleSelect"
     },
      {
-      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup> L<sup>0</sup> T<sup>0</sup>]?",
+      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>]?",
       "options": ["Strain", "Energy", "Power", "Force"],
       "correct": [0],
       "explanation": "Strain is a ratio of similar quantities and hence dimensionless.",
@@ -151,7 +151,7 @@ const quizData = [
       "question": "What is the dimensional formula for surface tension?",
       "options": ["[M T<sup>-2</sup>]", "[M L<sup>0</sup> T<sup>-2</sup>]", "[M T<sup>-1</sup>]", "[M L<sup>-1</sup> T<sup>-2</sup>]"],
       "correct": [3],
-      "explanation": "Surface tension = force/length ⇒ [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
+      "explanation": "Surface tension = force/length = [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -211,105 +211,33 @@ const quizData = [
       "type": "singleSelect"
     }
 ];
-//What is wrong in this code 
-/** What is wrong in this code. //Ver4.0 - this script generated Socre:0/30 even when many of my answers matched with correct answer
-Good catch, Jagdev — the logic glitch here lies in the way the selected option's value is being compared to the correct answer.
 
-In your submitQuiz() function, this line is causing the trouble:
+// Deep copy to preserve original data
+const shuffledQuizData = JSON.parse(JSON.stringify(quizData));
 
-javascript
-if (parseInt(selectedOption.value) === q.correct) {
-Here’s why it fails:
+// Utility to shuffle arrays
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
-q.correct is an array (like [2]), not a number.
+// Shuffle questions and their options
+function randomizeQuiz() {
+    shuffledQuizData.forEach((q, index) => {
+        q.originalIndex = index;  // track original position
+        const correctValue = q.options[q.correct[0]];
+        shuffleArray(q.options);
+        q.correct[0] = q.options.indexOf(correctValue);
+    });
+    shuffleArray(shuffledQuizData);
+}
 
-You're comparing a number (selectedOption.value) with an array, so the condition never evaluates to true — even when the answer is correct.
-
-✅ Fix:
-Update the condition to check against the actual value inside the array:
-
-javascript
-if (parseInt(selectedOption.value) === q.correct[0]) {
-This way, you’re comparing two numbers — the selected index vs. the correct option index — and your score will update properly.
-
-Also, a small typo in the PDF: "Your correct" and "Correct correct" should probably be "Your answer" and "Correct answer" for clarity. Want help polishing the full code or enhancing the results page with charts next?
-
-/ * Wrong Code below/
-// function loadQuiz() {
-//     const quizContainer = document.getElementById("quiz");
-//     quizData.forEach((q, index) => {
-//         let questionHTML = `<p>${index + 1}. ${q.question}</p>`;
-//         q.options.forEach((option, i) => {
-//             questionHTML += `<input type="radio" name="question${index}" value="${i}"> ${option} <br>`;
-//         });
-//         quizContainer.innerHTML += questionHTML + "<br>";
-//     });
-// }
-
-// function submitQuiz() {
-//     let score = 0;
-//     let userResponses = [];
-//     let explanationHTML = `<h2>Explanations:</h2>`;
-
-//     quizData.forEach((q, index) => {
-//         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-//         if (selectedOption) {
-//             userResponses.push({ question: q.question, selected: q.options[selectedOption.value], correct: q.options[q.correct], explanation: q.explanation });
-
-//             if (parseInt(selectedOption.value) === q.correct) {
-//                 score++;
-//                 selectedOption.parentElement.classList.add("correct");
-//             } else {
-//                 selectedOption.parentElement.classList.add("incorrect");
-//             }
-
-//             explanationHTML += `<p><strong>${index + 1}. ${q.question}</strong><br>
-//                                Your correct: ${q.options[selectedOption.value]}<br>
-//                                Correct correct: ${q.options[q.correct]}<br>
-//                                Explanation: ${q.explanation}</p>`;
-//         }
-//     });
-
-//     document.getElementById("result").innerHTML = `You scored ${score} out of ${quizData.length}!`;
-//     document.getElementById("explanation").innerHTML = explanationHTML;
-
-//     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
-// }
-
-// function generatePDF() {
-//     const { jsPDF } = window.jspdf;
-//     const doc = new jsPDF();
-
-//     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
-//     let y = 20;
-
-//     doc.setFont("helvetica", "bold");
-//     doc.setFontSize(18);
-//     doc.text("Physical World and Measurement Quiz Results", 20, 10);
-
-//     doc.setFontSize(14);
-//     doc.text(`Score: ${quizResults.score} / ${quizData.length}`, 20, y);
-//     y += 10;
-
-//     quizResults.userResponses.forEach((response, index) => {
-//         doc.setFontSize(12);
-//         doc.text(`${index + 1}. ${response.question}`, 10, y);
-//         y += 7;
-//         doc.text(`Your correct: ${response.selected}`, 10, y);
-//         y += 5;
-//         doc.text(`Correct correct: ${response.correct}`, 10, y);
-//         y += 5;
-//         doc.text(`Explanation: ${response.explanation}`, 10, y);
-//         y += 10;
-//     });
-
-//     doc.save("quiz_results.pdf");
-// }
-
-// window.onload = loadQuiz;
 function loadQuiz() {
+    randomizeQuiz();
     const quizContainer = document.getElementById("quiz");
-    quizData.forEach((q, index) => {
+    shuffledQuizData.forEach((q, index) => {
         let questionHTML = `<p>${index + 1}. ${q.question}</p>`;
         q.options.forEach((option, i) => {
             questionHTML += `<input type="radio" name="question${index}" value="${i}"> ${option} <br>`;
@@ -323,32 +251,31 @@ function submitQuiz() {
     let userResponses = [];
     let explanationHTML = `<h2>Explanations:</h2>`;
 
-    quizData.forEach((q, index) => {
+    shuffledQuizData.forEach((q, index) => {
         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-        if (selectedOption) {
-            const selectedIndex = parseInt(selectedOption.value);
-            userResponses.push({
-                question: q.question,
-                selected: q.options[selectedIndex],
-                correct: q.options[q.correct[0]],
-                explanation: q.explanation
-            });
+        const selectedIndex = selectedOption ? parseInt(selectedOption.value) : null;
+        const isCorrect = selectedIndex === q.correct[0];
 
-            if (selectedIndex === q.correct[0]) {
-                score++;
-                selectedOption.parentElement.classList.add("correct");
-            } else {
-                selectedOption.parentElement.classList.add("incorrect");
-            }
+        userResponses.push({
+            question: q.question,
+            selected: selectedIndex !== null ? q.options[selectedIndex] : "Not answered",
+            correct: q.options[q.correct[0]],
+            explanation: q.explanation,
+            isCorrect: selectedIndex !== null ? isCorrect : false
+        });
 
-            explanationHTML += `<p><strong>${index + 1}. ${q.question}</strong><br>
-                Your answer: ${q.options[selectedIndex]}<br>
-                Correct answer: ${q.options[q.correct[0]]}<br>
-                Explanation: ${q.explanation}</p>`;
-        }
+        score += selectedIndex !== null && isCorrect ? 1 : 0;
     });
 
-    document.getElementById("result").innerHTML = `You scored ${score} out of ${quizData.length}!`;
+    document.getElementById("result").innerHTML = `You scored ${score} out of ${shuffledQuizData.length}!`;
+
+    userResponses.forEach((res, i) => {
+        explanationHTML += `<p><strong>${i + 1}. ${res.question}</strong><br>
+            Your answer: ${res.selected}<br>
+            Correct answer: ${res.correct}<br>
+            Explanation: ${res.explanation}</p>`;
+    });
+
     document.getElementById("explanation").innerHTML = explanationHTML;
 
     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
@@ -358,30 +285,40 @@ function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
+    const pageHeight = doc.internal.pageSize.height;
+    const pageWidth = doc.internal.pageSize.width;
     let y = 20;
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.text("Physical World and Measurement Quiz Results", 20, 10);
+    doc.setFontSize(16);
+    doc.text("Motion in a Plane Quiz Results", 20, 15);
 
-    doc.setFontSize(14);
-    doc.text(`Score: ${quizResults.score} / ${quizData.length}`, 20, y);
+    doc.setFontSize(13);
+    doc.text(`Score: ${quizResults.score} / ${quizResults.userResponses.length}`, 20, y);
     y += 10;
 
-    quizResults.userResponses.forEach((response, index) => {
-        doc.setFontSize(12);
-        doc.text(`${index + 1}. ${response.question}`, 10, y);
-        y += 7;
-        doc.text(`Your answer: ${response.selected}`, 10, y);
-        y += 5;
-        doc.text(`Correct answer: ${response.correct}`, 10, y);
-        y += 5;
-        doc.text(`Explanation: ${response.explanation}`, 10, y);
-        y += 10;
+    quizResults.userResponses.forEach((res, index) => {
+        const block = [
+            `${index + 1}. ${res.question}`,
+            `Your answer: ${res.selected}`,
+            `Correct answer: ${res.correct}`,
+            `Explanation: ${res.explanation}`
+        ];
+
+        doc.setFontSize(11);
+        block.forEach(line => {
+            const wrapped = doc.splitTextToSize(line, pageWidth - 20);
+            if (y + wrapped.length * 6 > pageHeight - 15) {
+                doc.addPage();
+                y = 20;
+            }
+            doc.text(wrapped, 10, y);
+            y += wrapped.length * 6;
+        });
+
+        y += 4; // extra spacing between questions
     });
 
-    doc.save("quiz_results.pdf");
+    doc.save("Laws_Of_Motion_Quiz_Results.pdf");
 }
-
 window.onload = loadQuiz;
-

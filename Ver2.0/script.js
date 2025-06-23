@@ -1,5 +1,5 @@
 const quizData = [
-        {
+    {
       "question": "Which of the following is a fundamental quantity?",
       "options": ["Velocity", "Force", "Mass", "Energy"],
       "correct": [2],
@@ -22,9 +22,9 @@ const quizData = [
     },
     {
       "question": "What is the dimensional formula for force?",
-      "options": ["[M L T^-2]", "[M L T^-1]", "[M L^2 T^-2]", "[M L T^-3]"],
+      "options": ["[M L T<sup>-2</sup>]", "[M L T<sup>-1</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]", "[M L T<sup>-3</sup>]"],
       "correct": [0],
-      "explanation": "Force = mass × acceleration, so its dimension is [M L T^-2].",
+      "explanation": "Force = mass × acceleration, so its dimension is [M L T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -56,10 +56,10 @@ const quizData = [
       "type": "singleSelect"
     },
     {
-      "question": "Which of the following has the dimensional formula [M L^2 T^-2]?",
+      "question": "Which of the following has the dimensional formula [M L<sup>2</sup> T<sup>-2</sup>]?",
       "options": ["Energy", "Force", "Momentum", "Power"],
       "correct": [0],
-      "explanation": "Energy or work = force × displacement = [M L^2 T^-2].",
+      "explanation": "Energy or work = force × displacement = [M L<sup>2</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -78,9 +78,9 @@ const quizData = [
     },
     {
       "question": "What is the dimensional formula for pressure?",
-      "options": ["[M L^-1 T^-2]", "[M L T^-2]", "[M L^2 T^-2]", "[M L^-2 T^-2]"],
+      "options": ["[M L<sup>-1</sup> T<sup>-2</sup>]", "[M L T<sup>-2</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]", "[M L<sup>-2</sup> T<sup>-2</sup>]"],
       "correct": [0],
-      "explanation": "Pressure = force / area = [M L T^-2] / [L^2] = [M L^-1 T^-2].",
+      "explanation": "Pressure = force / area = [M L T<sup>-2</sup>] / [L<sup>2</sup>] = [M L<sup>-1</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -92,9 +92,9 @@ const quizData = [
     },
     {
       "question": "What is the dimensional formula for velocity?",
-      "options": ["[M L T^-1]", "[L T^-1]", "[L T^-2]", "[M L^2 T^-2]"],
+      "options": ["[M L T<sup>-1</sup>]", "[L T<sup>-1</sup>]", "[L T<sup>-2</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]"],
       "correct": [1],
-      "explanation": "Velocity = displacement/time = [L]/[T] = [L T^-1].",
+      "explanation": "Velocity = displacement/time = [L]/[T] = [L T<sup>-1</sup>].",
       "type": "singleSelect"
     },
     {
@@ -105,7 +105,7 @@ const quizData = [
       "type": "singleSelect"
     },
      {
-      "question": "Which physical quantity has the dimensional formula [M^0 L^0 T^0]?",
+      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup> L<sup>0</sup> T<sup>0</sup>]?",
       "options": ["Strain", "Energy", "Power", "Force"],
       "correct": [0],
       "explanation": "Strain is a ratio of similar quantities and hence dimensionless.",
@@ -148,9 +148,9 @@ const quizData = [
     },
     {
       "question": "What is the dimensional formula for surface tension?",
-      "options": ["[M T^-2]", "[M L^0 T^-2]", "[M T^-1]", "[M L^-1 T^-2]"],
+      "options": ["[M T<sup>-2</sup>]", "[M L<sup>0</sup> T<sup>-2</sup>]", "[M T<sup>-1</sup>]", "[M L<sup>-1</sup> T<sup>-2</sup>]"],
       "correct": [3],
-      "explanation": "Surface tension = force/length ⇒ [M L T^-2]/[L] = [M L^-1 T^-2].",
+      "explanation": "Surface tension = force/length ⇒ [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -169,7 +169,7 @@ const quizData = [
     },
     {
       "question": "What is the dimension of Planck’s constant (h)?",
-      "options": ["[M L^2 T^-1]", "[M L^2 T^-2]", "[M L T^-2]", "[M L^-2 T]"],
+      "options": ["[M L<sup>2</sup> T<sup>-1</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]", "[M L T<sup>-2</sup>]", "[M L<sup>-2</sup> T]"],
       "correct": [0],
       "explanation": "Planck's constant links energy and frequency: E = hν.",
       "type": "singleSelect"
@@ -182,7 +182,7 @@ const quizData = [
       "type": "singleSelect"
     },
     {
-      "question": "Which term has the dimensional formula [M^0 L T^-1]?",
+      "question": "Which term has the dimensional formula [M<sup>0</sup> L T<sup>-1</sup>]?",
       "options": ["Angular velocity", "Acceleration", "Speed", "Strain"],
       "correct": [0],
       "explanation": "Angular velocity has dimension of angle/time, where angle is dimensionless.",
@@ -209,10 +209,33 @@ const quizData = [
       "explanation": "All are derived from base units.",
       "type": "singleSelect"
     }
-]   
-    function loadQuiz() {
+]; 
+    // Deep copy to preserve original data
+const shuffledQuizData = JSON.parse(JSON.stringify(quizData));
+
+// Utility to shuffle arrays
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Shuffle questions and their options
+function randomizeQuiz() {
+    shuffledQuizData.forEach((q, index) => {
+        q.originalIndex = index;  // track original position
+        const correctValue = q.options[q.correct[0]];
+        shuffleArray(q.options);
+        q.correct[0] = q.options.indexOf(correctValue);
+    });
+    shuffleArray(shuffledQuizData);
+}
+
+function loadQuiz() {
+    randomizeQuiz();
     const quizContainer = document.getElementById("quiz");
-    quizData.forEach((q, index) => {
+    shuffledQuizData.forEach((q, index) => {
         let questionHTML = `<p>${index + 1}. ${q.question}</p>`;
         q.options.forEach((option, i) => {
             questionHTML += `<input type="radio" name="question${index}" value="${i}"> ${option} <br>`;
@@ -224,47 +247,62 @@ const quizData = [
 function submitQuiz() {
     let score = 0;
     let userResponses = [];
+    let explanationHTML = `<h2>Explanations:</h2>`;
 
-    quizData.forEach((q, index) => {
+    shuffledQuizData.forEach((q, index) => {
         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
         if (selectedOption) {
-            userResponses.push({ question: q.question, selected: q.options[selectedOption.value], correct: q.options[q.correct] });
+            const selectedIndex = parseInt(selectedOption.value);
+            const isCorrect = selectedIndex === q.correct[0];
 
-            if (parseInt(selectedOption.value) === q.correct) {
-                score++;
-                selectedOption.parentElement.classList.add("correct");
-            } else {
-                selectedOption.parentElement.classList.add("incorrect");
-            }
+            userResponses.push({
+                question: q.question,
+                selected: q.options[selectedIndex],
+                correct: q.options[q.correct[0]],
+                explanation: q.explanation,
+                isCorrect
+            });
+
+            score += isCorrect ? 1 : 0;
         }
     });
 
-    document.getElementById("result").innerHTML = `You scored ${score} out of ${quizData.length}!`;
+    document.getElementById("result").innerHTML = `You scored ${score} out of ${shuffledQuizData.length}!`;
+
+    userResponses.forEach((res, i) => {
+        explanationHTML += `<p><strong>${i + 1}. ${res.question}</strong><br>
+            Your answer: ${res.selected}<br>
+            Correct answer: ${res.correct}<br>
+            Explanation: ${res.explanation}</p>`;
+    });
+
+    document.getElementById("explanation").innerHTML = explanationHTML;
     localStorage.setItem("quizResults", JSON.stringify({ score, userResponses }));
 }
 
 function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-
     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
     let y = 20;
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("Polynomial Quiz Results", 20, 10);
+    doc.text("Physical World and Measurement Quiz Results", 20, 10);
 
     doc.setFontSize(14);
-    doc.text(`Score: ${quizResults.score} / ${quizData.length}`, 20, y);
+    doc.text(`Score: ${quizResults.score} / ${shuffledQuizData.length}`, 20, y);
     y += 10;
 
-    quizResults.userResponses.forEach((response, index) => {
+    quizResults.userResponses.forEach((res, index) => {
         doc.setFontSize(12);
-        doc.text(`${index + 1}. ${response.question}`, 10, y);
+        doc.text(`${index + 1}. ${res.question}`, 10, y);
         y += 7;
-        doc.text(`Your correct: ${response.selected}`, 10, y);
+        doc.text(`Your answer: ${res.selected}`, 10, y);
         y += 5;
-        doc.text(`Correct correct: ${response.correct}`, 10, y);
+        doc.text(`Correct answer: ${res.correct}`, 10, y);
+        y += 5;
+        doc.text(`Explanation: ${res.explanation}`, 10, y);
         y += 10;
     });
 

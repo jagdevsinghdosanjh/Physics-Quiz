@@ -1,5 +1,5 @@
 //Ver4.0 - Polynomial Quiz Application (script.js)
-   const quizData = [
+const quizData = [
     {
       "question": "Which of the following is a fundamental quantity?",
       "options": ["Velocity", "Force", "Mass", "Energy"],

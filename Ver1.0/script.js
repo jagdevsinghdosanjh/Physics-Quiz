@@ -210,7 +210,6 @@ const quizData = [
       "type": "singleSelect"
     }
 ];
-
 // Deep copy to preserve original data
 const shuffledQuizData = JSON.parse(JSON.stringify(quizData));
 

@@ -1,6 +1,6 @@
 //Ver4.0 - Polynomial Quiz Application (script.js)
-    const quizData=[
-          {
+const quizData = [
+    {
       "question": "Which of the following is a fundamental quantity?",
       "options": ["Velocity", "Force", "Mass", "Energy"],
       "correct": [2],
@@ -57,10 +57,10 @@
       "type": "singleSelect"
     },
     {
-      "question": "Which of the following has the dimensional formula [M L^2 T^-2]?",
+      "question": "Which of the following has the dimensional formula [M L<sup>2</sup> T<sup>-2</sup>]?",
       "options": ["Energy", "Force", "Momentum", "Power"],
       "correct": [0],
-      "explanation": "Energy or work = force × displacement = [M L^2 T^-2].",
+      "explanation": "Energy or work = force × displacement = [M L<sup>2</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -79,9 +79,9 @@
     },
     {
       "question": "What is the dimensional formula for pressure?",
-      "options": ["[M L^-1 T^-2]", "[M L T^-2]", "[M L^2 T^-2]", "[M L^-2 T^-2]"],
+      "options": ["[M L<sup>-1</sup> T<sup>-2</sup>]", "[M L T<sup>-2</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]", "[M L<sup>-2</sup> T<sup>-2</sup>]"],
       "correct": [0],
-      "explanation": "Pressure = force / area = [M L T^-2] / [L^2] = [M L^-1 T^-2].",
+      "explanation": "Pressure = force / area = [M L T<sup>-2</sup>] / [L<sup>2</sup>] = [M L<sup>-1</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -93,9 +93,9 @@
     },
     {
       "question": "What is the dimensional formula for velocity?",
-      "options": ["[M L T^-1]", "[L T^-1]", "[L T^-2]", "[M L^2 T^-2]"],
+      "options": ["[M L T<sup>-1</sup>]", "[L T<sup>-1</sup>]", "[L T<sup>-2</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]"],
       "correct": [1],
-      "explanation": "Velocity = displacement/time = [L]/[T] = [L T^-1].",
+      "explanation": "Velocity = displacement/time = [L]/[T] = [L T<sup>-1</sup>].",
       "type": "singleSelect"
     },
     {
@@ -106,7 +106,7 @@
       "type": "singleSelect"
     },
      {
-      "question": "Which physical quantity has the dimensional formula [M^0 L^0 T^0]?",
+      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup> L<sup>0</sup> T<sup>0</sup>]?",
       "options": ["Strain", "Energy", "Power", "Force"],
       "correct": [0],
       "explanation": "Strain is a ratio of similar quantities and hence dimensionless.",
@@ -149,9 +149,9 @@
     },
     {
       "question": "What is the dimensional formula for surface tension?",
-      "options": ["[M T^-2]", "[M L^0 T^-2]", "[M T^-1]", "[M L^-1 T^-2]"],
+      "options": ["[M T<sup>-2</sup>]", "[M L<sup>0</sup> T<sup>-2</sup>]", "[M T<sup>-1</sup>]", "[M L<sup>-1</sup> T<sup>-2</sup>]"],
       "correct": [3],
-      "explanation": "Surface tension = force/length ⇒ [M L T^-2]/[L] = [M L^-1 T^-2].",
+      "explanation": "Surface tension = force/length ⇒ [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
       "type": "singleSelect"
     },
     {
@@ -170,7 +170,7 @@
     },
     {
       "question": "What is the dimension of Planck’s constant (h)?",
-      "options": ["[M L^2 T^-1]", "[M L^2 T^-2]", "[M L T^-2]", "[M L^-2 T]"],
+      "options": ["[M L<sup>2</sup> T<sup>-1</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]", "[M L T<sup>-2</sup>]", "[M L<sup>-2</sup> T]"],
       "correct": [0],
       "explanation": "Planck's constant links energy and frequency: E = hν.",
       "type": "singleSelect"
@@ -183,7 +183,7 @@
       "type": "singleSelect"
     },
     {
-      "question": "Which term has the dimensional formula [M^0 L T^-1]?",
+      "question": "Which term has the dimensional formula [M<sup>0</sup> L T<sup>-1</sup>]?",
       "options": ["Angular velocity", "Acceleration", "Speed", "Strain"],
       "correct": [0],
       "explanation": "Angular velocity has dimension of angle/time, where angle is dimensionless.",
@@ -210,7 +210,7 @@
       "explanation": "All are derived from base units.",
       "type": "singleSelect"
     }
-  ];
+];
 //What is wrong in this code 
 /** What is wrong in this code. //Ver4.0 - this script generated Socre:0/30 even when many of my answers matched with correct answer
 Good catch, Jagdev — the logic glitch here lies in the way the selected option's value is being compared to the correct answer.

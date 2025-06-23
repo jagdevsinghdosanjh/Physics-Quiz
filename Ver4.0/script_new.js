@@ -1,119 +1,214 @@
-let quizData = [
- {
-      "question": "Which of the following is a polynomial?",
-      "options": ["2x² + 3x + 5", "1/x + 2", "√x + 3", "x⁻¹ + 4"],
-      "correct": 0,
-      "explanation": "A polynomial must have variables with non-negative integer powers."
+const quizData = [
+    {
+      "question": "Which of the following is a fundamental quantity?",
+      "options": ["Velocity", "Force", "Mass", "Energy"],
+      "correct": [2],
+      "explanation": "Mass is a fundamental quantity. Others are derived from it.",
+      "type": "singleSelect"
     },
     {
-      "question": "What is the degree of the polynomial 5x³ - 2x² + 7?",
-      "options": ["1", "2", "3", "5"],
-      "correct": 2,
-      "explanation": "The degree is the highest exponent, which is 3."
+      "question": "What is the SI unit of luminous intensity?",
+      "options": ["Candela", "Lux", "Lumen", "Watt"],
+      "correct": [0],
+      "explanation": "Candela is the SI unit of luminous intensity.",
+      "type": "singleSelect"
     },
     {
-      "question": "Find the zero of x² - 9.",
-      "options": ["±3", "5", "-9", "None"],
-      "correct": 0,
-      "explanation": "Using a² - b² = (a - b)(a + b), we get (x - 3)(x + 3) = 0."
+      "question": "Which of the following is not a derived quantity?",
+      "options": ["Length", "Speed", "Acceleration", "Momentum"],
+      "correct": [0],
+      "explanation": "Length is a base physical quantity.",
+      "type": "singleSelect"
     },
     {
-      "question": "Which polynomial identity expands (a + b)²?",
-      "options": ["a² + b²", "a² + 2ab + b²", "a² - b²", "(a+b)(a-b)"],
-      "correct": 1,
-      "explanation": "The expansion formula is (a + b)² = a² + 2ab + b²."
+      "question": "What is the dimensional formula for force?",
+      "options": ["[M L T<sup>-2</sup>]", "[M L T<sup>-1</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]", "[M L T<sup>-3</sup>]"],
+      "correct": [0],
+      "explanation": "Force = mass × acceleration, so its dimension is [M L T<sup>-2</sup>].",
+      "type": "singleSelect"
     },
     {
-      "question": "What is the factorization of x² + 5x + 6?",
-      "options": ["(x + 2)(x + 3)", "(x + 1)(x + 6)", "(x + 3)(x + 5)", "(x + 2)(x + 5)"],
-      "correct": 0,
-      "explanation": "Finding two numbers whose product is 6 and sum is 5 gives (x + 2)(x + 3)."
+      "question": "Which of the following is a scalar quantity?",
+      "options": ["Velocity", "Force", "Energy", "Displacement"],
+      "correct": [2],
+      "explanation": "Energy has magnitude but no direction.",
+      "type": "singleSelect"
     },
     {
-      "question": "What is the remainder when x² + 3x + 2 is divided by x + 1?",
-      "options": ["0", "1", "2", "3"],
-      "correct": 0,
-      "explanation": "Using the remainder theorem, substituting x = -1 gives 0."
+      "question": "What is the SI unit of electric current?",
+      "options": ["Volt", "Ampere", "Ohm", "Coulomb"],
+      "correct": [1],
+      "explanation": "Ampere is the base unit of electric current.",
+      "type": "singleSelect"
     },
     {
-      "question": "Which polynomial represents a monomial?",
-      "options": ["3x²", "2x + 5", "x² + x + 1", "x³ - x"],
-      "correct": 0,
-      "explanation": "A monomial has only one term."
+      "question": "Which of the following is a dimensionless quantity?",
+      "options": ["Refractive index", "Force", "Velocity", "Energy"],
+      "correct": [0],
+      "explanation": "Refractive index is the ratio of two speeds and hence dimensionless.",
+      "type": "singleSelect"
     },
     {
-      "question": "Solve (x + 4)(x - 4).",
-      "options": ["x² - 16", "x² + 16", "x² - 4", "x² + 4"],
-      "correct": 0,
-      "explanation": "Using identity (a+b)(a-b) = a² - b², we get x² - 16."
+      "question": "What is the SI unit of temperature?",
+      "options": ["Kelvin", "Celsius", "Fahrenheit", "Rankine"],
+      "correct": [0],
+      "explanation": "Kelvin is the SI base unit for temperature.",
+      "type": "singleSelect"
     },
     {
-      "question": "What is the zero of x² - 4x + 4?",
-      "options": ["2", "-2", "4", "None"],
-      "correct": 0,
-      "explanation": "Factorizing gives (x-2)(x-2) = 0, so x = 2."
+      "question": "Which of the following has the dimensional formula [M L<sup>2</sup> T<sup>-2</sup>]?",
+      "options": ["Energy", "Force", "Momentum", "Power"],
+      "correct": [0],
+      "explanation": "Energy or work = force × displacement = [M L<sup>2</sup> T<sup>-2</sup>].",
+      "type": "singleSelect"
     },
     {
-      "question": "Find the value of (a - b)² when a = 3 and b = 2.",
-      "options": ["1", "5", "10", "9"],
-      "correct": 1,
-      "explanation": "Using (a - b)² = a² - 2ab + b², substituting a = 3, b = 2 gives 5."
+      "question": "What is the SI unit of frequency?",
+      "options": ["Hertz", "Second", "Meter", "Newton"],
+      "correct": [0],
+      "explanation": "Hertz (Hz) is the number of cycles per second.",
+      "type": "singleSelect"
     },
     {
-      "question": "Which is a quadratic polynomial?",
-      "options": ["x³ + 3x² + 4x + 5", "x² + 4x + 6", "x⁴ + 2x³ - 3", "None"],
-      "correct": 1,
-      "explanation": "A quadratic polynomial has the highest degree of 2."
+      "question": "Which of the following is a vector quantity?",
+      "options": ["Mass", "Speed", "Velocity", "Temperature"],
+      "correct": [2],
+      "explanation": "Velocity has both magnitude and direction.",
+      "type": "singleSelect"
     },
     {
-      "question": "Expand (x + 3)(x - 2).",
-      "options": ["x² + x - 6", "x² - x - 6", "x² - x + 6", "x² + x + 6"],
-      "correct": 0,
-      "explanation": "Using distributive property, x² + x - 6."
+      "question": "What is the dimensional formula for pressure?",
+      "options": ["[M L<sup>-1</sup> T<sup>-2</sup>]", "[M L T<sup>-2</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]", "[M L<sup>-2</sup> T<sup>-2</sup>]"],
+      "correct": [0],
+      "explanation": "Pressure = force / area = [M L T<sup>-2</sup>] / [L<sup>2</sup>] = [M L<sup>-1</sup> T<sup>-2</sup>].",
+      "type": "singleSelect"
     },
     {
-      "question": "What is the coefficient of x² in 3x² - 4x + 7?",
-      "options": ["3", "-4", "7", "None"],
-      "correct": 0,
-      "explanation": "The coefficient of x² is 3."
+      "question": "Which of the following is a derived unit?",
+      "options": ["Meter", "Kilogram", "Newton", "Second"],
+      "correct": [2],
+      "explanation": "Newton is derived from kg·m/s².",
+      "type": "singleSelect"
     },
     {
-      "question": "What is the highest degree term in 4x³ - 2x² + x - 1?",
-      "options": ["4x³", "-2x²", "x", "-1"],
-      "correct": 0,
-      "explanation": "The highest degree term is 4x³ (degree = 3)."
+      "question": "What is the dimensional formula for velocity?",
+      "options": ["[M L T<sup>-1</sup>]", "[L T<sup>-1</sup>]", "[L T<sup>-2</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]"],
+      "correct": [1],
+      "explanation": "Velocity = displacement/time = [L]/[T] = [L T<sup>-1</sup>].",
+      "type": "singleSelect"
     },
     {
-      "question": "What is the factorization of x² - 2x - 8?",
-      "options": ["(x-4)(x+2)", "(x+4)(x-2)", "(x+3)(x-3)", "None"],
-      "correct": 0,
-      "explanation": "Finding two numbers whose product is -8 and sum is -2 gives (x-4)(x+2)."
+      "question": "Which of the following is a fundamental unit?",
+      "options": ["Joule", "Meter", "Watt", "Pascal"],
+      "correct": [1],
+      "explanation": "Meter is a base unit; others are derived.",
+      "type": "singleSelect"
+    },
+     {
+      "question": "Which physical quantity has the dimensional formula [M<sup>0</sup> L<sup>0</sup> T<sup>0</sup>]?",
+      "options": ["Strain", "Energy", "Power", "Force"],
+      "correct": [0],
+      "explanation": "Strain is a ratio of similar quantities and hence dimensionless.",
+      "type": "singleSelect"
     },
     {
-      "question": "Find the sum of the zeros of x² - 5x + 6.",
-      "options": ["5", "6", "0", "-5"],
-      "correct": 0,
-      "explanation": "Using the relation sum of zeros = -b/a, we get 5."
+      "question": "What is the SI unit of luminous flux?",
+      "options": ["Lumen", "Candela", "Lux", "Watt"],
+      "correct": [0],
+      "explanation": "Lumen is the SI unit of luminous flux.",
+      "type": "singleSelect"
     },
     {
-      "question": "What identity is used in x² - y²?",
-      "options": ["a² + b²", "a² - b² = (a-b)(a+b)", "(a+b)²", "(a-b)²"],
-      "correct": 1,
-      "explanation": "The formula a² - b² = (a-b)(a+b) applies."
+      "question": "Which derived unit corresponds to [kg·m²/s³]?",
+      "options": ["Watt", "Joule", "Pascal", "Volt"],
+      "correct": [0],
+      "explanation": "Watt is the unit of power and equals kg·m²/s³.",
+      "type": "singleSelect"
     },
     {
-      "question": "What is the zero of the polynomial x² + x - 6?",
-      "options": ["-3 and 2", "3 and -2", "6 and -1", "None"],
-      "correct": 0,
-      "explanation": "Factorizing (x+3)(x-2) = 0 gives x = -3 and x = 2."
+      "question": "Which of the following is NOT a base quantity?",
+      "options": ["Temperature", "Electric current", "Momentum", "Length"],
+      "correct": [2],
+      "explanation": "Momentum is a derived quantity.",
+      "type": "singleSelect"
     },
     {
-      "question": "Find the product of the zeros of x² - 4x + 3.",
-      "options": ["3", "4", "12", "-4"],
-      "correct": 0,
-      "explanation": "Product of zeros = c/a, which is 3."
+      "question": "What is the SI unit of solid angle?",
+      "options": ["Steradian", "Radian", "Degree", "Candela"],
+      "correct": [0],
+      "explanation": "Steradian is the unit of solid angle.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Which of the following is an example of a vector quantity?",
+      "options": ["Torque", "Speed", "Time", "Energy"],
+      "correct": [0],
+      "explanation": "Torque has both magnitude and direction.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "What is the dimensional formula for surface tension?",
+      "options": ["[M T<sup>-2</sup>]", "[M L<sup>0</sup> T<sup>-2</sup>]", "[M T<sup>-1</sup>]", "[M L<sup>-1</sup> T<sup>-2</sup>]"],
+      "correct": [3],
+      "explanation": "Surface tension = force/length ⇒ [M L T<sup>-2</sup>]/[L] = [M L<sup>-1</sup> T<sup>-2</sup>].",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Which fundamental quantity is used to derive angular velocity?",
+      "options": ["Time", "Length", "Mass", "Current"],
+      "correct": [0],
+      "explanation": "Angular velocity is measured as angle per unit time.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "The unit 'Newton-second' is used to measure:",
+      "options": ["Impulse", "Momentum", "Power", "Energy"],
+      "correct": [0],
+      "explanation": "Impulse = force × time, and is measured in Newton-seconds.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "What is the dimension of Planck’s constant (h)?",
+      "options": ["[M L<sup>2</sup> T<sup>-1</sup>]", "[M L<sup>2</sup> T<sup>-2</sup>]", "[M L T<sup>-2</sup>]", "[M L<sup>-2</sup> T]"],
+      "correct": [0],
+      "explanation": "Planck's constant links energy and frequency: E = hν.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Which pair is correctly matched?",
+      "options": ["Magnetic flux - Weber", "Electric current - Volt", "Force - Watt", "Work - Coulomb"],
+      "correct": [0],
+      "explanation": "Weber is the SI unit of magnetic flux.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Which term has the dimensional formula [M<sup>0</sup> L T<sup>-1</sup>]?",
+      "options": ["Angular velocity", "Acceleration", "Speed", "Strain"],
+      "correct": [0],
+      "explanation": "Angular velocity has dimension of angle/time, where angle is dimensionless.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Which unit is a measure of energy?",
+      "options": ["Joule", "Watt", "Ampere", "Newton"],
+      "correct": [0],
+      "explanation": "Joule is the unit of work or energy.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Which is a pair of base quantities in SI?",
+      "options": ["Temperature, Current", "Energy, Power", "Force, Time", "Pressure, Length"],
+      "correct": [0],
+      "explanation": "Temperature (K) and electric current (A) are base quantities.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Which of the following expresses derived units only?",
+      "options": ["Newton, Joule, Watt", "Meter, Second, Kelvin", "Ampere, Candela, Mole", "Kilogram, Meter, Second"],
+      "correct": [0],
+      "explanation": "All are derived from base units.",
+      "type": "singleSelect"
     }
-
 ];
 
 async function loadQuizData() {

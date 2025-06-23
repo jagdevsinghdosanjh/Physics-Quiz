@@ -446,40 +446,81 @@ function submitQuiz() {
 
 //     doc.save("quiz_results.pdf");
 // }
+// function generatePDF() {
+//     const { jsPDF } = window.jspdf;
+//     const doc = new jsPDF();
+//     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
+//     let y = 20;
+//     const pageHeight = doc.internal.pageSize.height;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.setFontSize(18);
+//     doc.text("Physical World and Measurement Quiz Results", 20, 10);
+
+//     doc.setFontSize(14);
+//     doc.text(`Score: ${quizResults.score} / ${shuffledQuizData.length}`, 20, y);
+//     y += 10;
+
+//     quizResults.userResponses.forEach((res, index) => {
+//         const blockHeight = 25; // estimated height per question block
+//         if (y + blockHeight > pageHeight - 10) {
+//             doc.addPage();
+//             y = 20;
+//         }
+
+//         doc.setFontSize(12);
+//         doc.text(`${index + 1}. ${res.question}`, 10, y);
+//         y += 7;
+//         doc.text(`Your answer: ${res.selected}`, 10, y);
+//         y += 5;
+//         doc.text(`Correct answer: ${res.correct}`, 10, y);
+//         y += 5;
+//         doc.text(`Explanation: ${res.explanation}`, 10, y);
+//         y += 8;
+//     });
+
+//     doc.save("quiz_results.pdf");
+// }
+
+// window.onload = loadQuiz;
+
 function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const quizResults = JSON.parse(localStorage.getItem("quizResults"));
-    let y = 20;
     const pageHeight = doc.internal.pageSize.height;
+    const pageWidth = doc.internal.pageSize.width;
+    let y = 20;
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.text("Physical World and Measurement Quiz Results", 20, 10);
+    doc.setFontSize(16);
+    doc.text("Physical World and Measurement Quiz Results", 20, 15);
 
-    doc.setFontSize(14);
-    doc.text(`Score: ${quizResults.score} / ${shuffledQuizData.length}`, 20, y);
+    doc.setFontSize(13);
+    doc.text(`Score: ${quizResults.score} / ${quizResults.userResponses.length}`, 20, y);
     y += 10;
 
     quizResults.userResponses.forEach((res, index) => {
-        const blockHeight = 25; // estimated height per question block
-        if (y + blockHeight > pageHeight - 10) {
-            doc.addPage();
-            y = 20;
-        }
+        const block = [
+            `${index + 1}. ${res.question}`,
+            `Your answer: ${res.selected}`,
+            `Correct answer: ${res.correct}`,
+            `Explanation: ${res.explanation}`
+        ];
 
-        doc.setFontSize(12);
-        doc.text(`${index + 1}. ${res.question}`, 10, y);
-        y += 7;
-        doc.text(`Your answer: ${res.selected}`, 10, y);
-        y += 5;
-        doc.text(`Correct answer: ${res.correct}`, 10, y);
-        y += 5;
-        doc.text(`Explanation: ${res.explanation}`, 10, y);
-        y += 8;
+        doc.setFontSize(11);
+        block.forEach(line => {
+            const wrapped = doc.splitTextToSize(line, pageWidth - 20);
+            if (y + wrapped.length * 6 > pageHeight - 15) {
+                doc.addPage();
+                y = 20;
+            }
+            doc.text(wrapped, 10, y);
+            y += wrapped.length * 6;
+        });
+
+        y += 4; // extra spacing between questions
     });
 
     doc.save("quiz_results.pdf");
 }
-
-window.onload = loadQuiz;

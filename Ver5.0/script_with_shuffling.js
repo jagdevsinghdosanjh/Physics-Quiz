@@ -524,3 +524,4 @@ function generatePDF() {
 
     doc.save("quiz_results.pdf");
 }
+window.onload = loadQuiz;
